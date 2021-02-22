@@ -28,12 +28,13 @@ public class OcdService {
     public OnuSpecificData getOnuSpecificData(String portId) throws IOException {
         String request = XMLHelper.generateGetOnuSpecificDataRequest(portId);
         String response = SOAPHelper.sendSoapRequest(request);
-        List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "OnuSpecificData");
+        List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "onuSpecificData");
         OnuSpecificData respData = new OnuSpecificData();
         for(String str : onuSpecData) {
-            respData.attributes.put(XMLHelper.extractValueFromStringObject(str, "attrName"),
-                    XMLHelper.extractValueFromStringObject(str, "attrValue"));
+            respData.attributes.put(XMLHelper.extractValueFromStringObject(str, "attributeName"),
+                    XMLHelper.extractValueFromStringObject(str, "attributeValue"));
         }
+        respData.setPortId(XMLHelper.extractAttributeFromStringObject(onuSpecData.get(0), "portId"));
 
 
         return respData;

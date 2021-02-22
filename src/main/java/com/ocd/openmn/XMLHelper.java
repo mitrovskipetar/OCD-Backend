@@ -41,7 +41,7 @@ public class XMLHelper {
 	public static String extractValueFromStringObject(String object, String attrName) {
 		object = object.substring(object.indexOf(attrName) + attrName.length());
 		object = object.substring(object.indexOf("\"") + 1);
-		String value = object.substring(0, object.indexOf("\"") + 1);
+		String value = object.substring(0, object.indexOf("\""));
 		return value;
 		}
 
