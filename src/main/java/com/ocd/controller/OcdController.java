@@ -11,6 +11,7 @@ import com.ocd.service.OcdService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @ComponentScan(basePackages= {"com.ocd.com.ocd.controller"})
 @RestController
@@ -36,6 +37,11 @@ public class OcdController {
             response = ocdService.getOnus(attrName, attrValue);
         }
         return response;
+    }
+
+    @GetMapping("/api/getOnuSpecificData")
+    public OnuSpecificData getOnuSpecificData(@RequestParam String portId) throws IOException {
+        return ocdService.getOnuSpecificData(portId);
     }
 
 //    public OnuSpecificData getOnuSpecificData(@RequestParam String )

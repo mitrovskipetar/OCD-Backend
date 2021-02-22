@@ -15,7 +15,6 @@ public class OcdApplication {
 
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         SpringApplication.run(OcdApplication.class, args);
-    XMLHelper.extractValueFromStringObject("interface", "");
     }
 
 }

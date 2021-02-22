@@ -17,6 +17,16 @@ public class XMLHelper {
 		return xmlDoc;
 	}
 
+	public static String generateGetOnuSpecificDataRequest(String portId) {
+		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
+				+ "   <soapenv:Header/>\r\n" + "   <soapenv:Body>";
+		String afterSoapReq = "</soapenv:Body>\r\n" + "</soapenv:Envelope>";
+		String soapReq = "<urn:getOnuSpecificDataRequest>" + "<filter portId='" + portId + "'/>"
+				+ "</urn:getOnuSpecificDataRequest>";
+		String xmlDoc = beforeSoapReq + soapReq + afterSoapReq;
+		return xmlDoc;
+	}
+
 //	public static String generateGetOnusRequest(String attrName, String attrValue, String secAttrName, String secAttrValue) {
 //		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
 //				+ "   <soapenv:Header/>\r\n" + "   <soapenv:Body>";
@@ -139,7 +149,7 @@ public class XMLHelper {
 		xmlDoc = beforeSoapReq + soapReq + afterSoapReq;
 		return xmlDoc;
 	}
-	
+	//TR
 	public static String getAttributeFromObject(String attr) {
 		String str2 = "nodeId=/ nodeTypeId=ITLUMEV1/ nodeTypeIdVirt=/ snmpProfileId=SNMP_V2C/ description=1223/ version=/ versionPrint=/ commonName=qwe/ mnNodeId=mnsskopje137/ connectivityProfileId=/ ntpProfileId=/ syslogGroupId=/ hostname=qwe/ hostname1=/ hostname2=/ productCategory=/ nodeMode=/ snmpEntityId=/ mnUrl=/ nodeIp=/ mnRelease=/ dbRelease=/ dataRelease=/ voipHostname=/ snmpProxyAgentNodeId=/ snmpAgentMibType=/ productId=/ hiddenNode=/ dbSyncMode=/ uploadMode=/ autoConfigDisabled=/ duplicated=/ productName=/ docRelease=/ snSwUpdate=/ sqlRecording=/ dialupAccess=/ neRelease2=/ manualUpgrade=/ acsConfigurationMode=/ geoHostname=/ tags=/ internal=/ geoZoneId=/ timeZoneId=/ imsNodeType=/ imsSipUri=/ mnReleasePrint=/ dbReleasePrint=/ dataReleasePrint=/ geoRedundant=/ dbSyncModeVirtual=/ state=/ alarmSeverity=/ alarms=/ oldTags=/ isEditor=/ forcedDelete=/ diagModuleId=/ entityIndex=/ ossMacAddress=/ ossSwVersion=/ autoConfigEnabled=/ subtypes=/ subtypesVirtual=/ ";
 		String strWithEq = "/\\b\\w+=/";

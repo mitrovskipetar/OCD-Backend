@@ -1,6 +1,7 @@
 package com.ocd.service;
 
 import ch.qos.logback.core.db.DBHelper;
+import com.ocd.model.OnuSpecificData;
 import com.ocd.model.ShortItGponOnu;
 import com.ocd.openmn.SOAPHelper;
 import com.ocd.openmn.XMLHelper;
@@ -22,6 +23,20 @@ public class OcdService {
             resultOnus.add(onu);
         }
         return resultOnus;
+    }
+
+    public OnuSpecificData getOnuSpecificData(String portId) throws IOException {
+        String request = XMLHelper.generateGetOnuSpecificDataRequest(portId);
+        String response = SOAPHelper.sendSoapRequest(request);
+        List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "OnuSpecificData");
+        OnuSpecificData respData = new OnuSpecificData();
+        for(String str : onuSpecData) {
+            respData.attributes.put(XMLHelper.extractValueFromStringObject(str, "attrName"),
+                    XMLHelper.extractValueFromStringObject(str, "attrValue"));
+        }
+
+
+        return respData;
     }
 
 //    public void getOnus(String attrName, String attrValue, String secAttrName, String secAttrValue) {

@@ -1,9 +1,6 @@
 package com.ocd.openmn;
 
-import com.ocd.model.ShortItGponOnu;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
@@ -12,10 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Encoder;
-import java.util.List;
 
 public class SOAPHelper {
 
@@ -94,7 +89,7 @@ public class SOAPHelper {
 	}
 
 
-	
+
 	public static String extractStringObjectFromResponse(String xmlResponse) throws Exception {
 			String response = xmlResponse;
 			response = response.substring(response.indexOf("object=") + 9, response.indexOf("]\"/>"));
@@ -108,6 +103,7 @@ public class SOAPHelper {
 		return null;
 	}
 
+	//TR
 	public static int extractIntValueFromXml(String attrName, String xmlResponse)
 			throws ParserConfigurationException, SAXException, IOException {
 		String response = xmlResponse;

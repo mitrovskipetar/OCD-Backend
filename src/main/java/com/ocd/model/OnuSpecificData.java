@@ -1,12 +1,13 @@
 package com.ocd.model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class OnuSpecificData {
-    Map<String, String> attributes;
-    String portId;
+    public Map<String, String> attributes = new HashMap<>();
+    public String portId;
 
-    public OnuSpecificData (String attributesAsString) {
+    public OnuSpecificData () {
 
 
     }
