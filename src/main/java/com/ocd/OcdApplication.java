@@ -1,5 +1,6 @@
 package com.ocd;
 
+import com.ocd.model.OnuSpecificData;
 import com.ocd.openmn.SOAPHelper;
 import com.ocd.openmn.XMLHelper;
 import com.ocd.service.OcdService;
@@ -9,6 +10,8 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class OcdApplication {

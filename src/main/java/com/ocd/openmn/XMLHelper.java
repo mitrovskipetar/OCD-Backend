@@ -1,6 +1,6 @@
 package com.ocd.openmn;
 
-import com.ocd.model.ShortItGponOnu;
+import com.ocd.model.OnuSpecificData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class XMLHelper {
 		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
 				+ "   <soapenv:Header/>\r\n" + "   <soapenv:Body>";
 		String afterSoapReq = "</soapenv:Body>\r\n" + "</soapenv:Envelope>";
-		String soapReq = "<urn:getOnusRequest>" + "<filter attr='" + attrName + "' value='" + attrValue + "' />"
+		String soapReq = "<urn:getOnusRequest>" + "<filter attr='" + attrName + "' value='" + attrValue.trim() + "' />"
 				+ "</urn:getOnusRequest>";
 		String xmlDoc = beforeSoapReq + soapReq + afterSoapReq;
 		return xmlDoc;
@@ -24,6 +24,26 @@ public class XMLHelper {
 		String soapReq = "<urn:getOnuSpecificDataRequest>" + "<filter portId='" + portId + "'/>"
 				+ "</urn:getOnuSpecificDataRequest>";
 		String xmlDoc = beforeSoapReq + soapReq + afterSoapReq;
+		return xmlDoc;
+	}
+
+	public static String generateInsertOnuSpecificDataRequest(OnuSpecificData onuSpecificData) {
+		onuSpecificData.getParams().size();
+		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
+				+ "   <soapenv:Header/>\r\n" + "   <soapenv:Body>";
+		String afterSoapReq = "</soapenv:Body>\r\n" + "</soapenv:Envelope>";
+		String soapReqBeg = "<urn:insertOnuSpecificDataRequest>" + "<onuSpec id=\"" + onuSpecificData.getId()
+				+ "\" portId=\"" + onuSpecificData.getPortId() + "\">";
+		String soapReqEnd = "</onuSpec> </urn:insertOnuSpecificDataRequest>";
+		String soapReqBody = "";
+		String xmlDoc = "";
+		xmlDoc = xmlDoc.concat(beforeSoapReq + soapReqBeg);
+		for(int i = 0; i < onuSpecificData.getParams().size(); i++) {
+			xmlDoc = xmlDoc.concat("<onuSpecParams portId=\" " + onuSpecificData.getPortId() + "\" attributeName=\"" +
+					onuSpecificData.getParams().get(i).getParam() +
+					"\" attributeValue=\"" + onuSpecificData.getParams().get(i).getValue() + "\" />");
+		}
+		xmlDoc = xmlDoc.concat(soapReqEnd + afterSoapReq);
 		return xmlDoc;
 	}
 

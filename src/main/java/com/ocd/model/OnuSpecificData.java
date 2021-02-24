@@ -1,11 +1,17 @@
 package com.ocd.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OnuSpecificData {
-    public Map<String, String> attributes = new HashMap<>();
+    public List<OnuSpecificParams> params = new ArrayList<>();
     public String portId;
+
+
+
+    public String id;
 
     public OnuSpecificData () {
 
@@ -19,12 +25,16 @@ public class OnuSpecificData {
         return value;
     }
 
-    public Map<String, String> getAttributes() {
-        return attributes;
+    public void addParam (OnuSpecificParams param) {
+        params.add(param);
     }
 
-    public void setAttributes(Map<String, String> attributes) {
-        this.attributes = attributes;
+    public List<OnuSpecificParams> getParams() {
+        return params;
+    }
+
+    public void setAttributes(List<OnuSpecificParams> params) {
+        this.params = params;
     }
 
     public String getPortId() {
@@ -33,5 +43,12 @@ public class OnuSpecificData {
 
     public void setPortId(String portId) {
         this.portId = portId;
+    }
+
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 }

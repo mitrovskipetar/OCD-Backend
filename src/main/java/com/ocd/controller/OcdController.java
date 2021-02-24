@@ -44,6 +44,11 @@ public class OcdController {
         return ocdService.getOnuSpecificData(portId);
     }
 
+    @PostMapping("/api/insertOnuSpecificData")
+    public boolean insertOnuSpecificData(@RequestBody OnuSpecificData onuSpecificData) throws IOException {
+        return ocdService.insertOnuSpecificData(onuSpecificData);
+    }
+
 //    public OnuSpecificData getOnuSpecificData(@RequestParam String )
 
 }

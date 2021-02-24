@@ -1,7 +1,7 @@
 package com.ocd.service;
 
-import ch.qos.logback.core.db.DBHelper;
 import com.ocd.model.OnuSpecificData;
+import com.ocd.model.OnuSpecificParams;
 import com.ocd.model.ShortItGponOnu;
 import com.ocd.openmn.SOAPHelper;
 import com.ocd.openmn.XMLHelper;
@@ -30,14 +30,24 @@ public class OcdService {
         String response = SOAPHelper.sendSoapRequest(request);
         List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "onuSpecificData");
         OnuSpecificData respData = new OnuSpecificData();
-        for(String str : onuSpecData) {
-            respData.attributes.put(XMLHelper.extractValueFromStringObject(str, "attributeName"),
-                    XMLHelper.extractValueFromStringObject(str, "attributeValue"));
-        }
+        respData.setId(XMLHelper.extractAttributeFromStringObject(onuSpecData.get(0), "id"));
         respData.setPortId(XMLHelper.extractAttributeFromStringObject(onuSpecData.get(0), "portId"));
-
-
+        for(String str : onuSpecData) {
+            OnuSpecificParams params = new OnuSpecificParams();
+            params.setParam(XMLHelper.extractValueFromStringObject(str, "attributeName"));
+            params.setValue(XMLHelper.extractValueFromStringObject(str, "attributeValue"));
+            params.setPortId(XMLHelper.extractAttributeFromStringObject(onuSpecData.get(0), "portId"));
+            respData.addParam(params);
+        }
         return respData;
+    }
+
+    public boolean insertOnuSpecificData(OnuSpecificData onuSpecificData) throws IOException {
+        String request = XMLHelper.generateInsertOnuSpecificDataRequest(onuSpecificData);
+        String response = SOAPHelper.sendSoapRequest(request);
+
+
+        return true;
     }
 
 //    public void getOnus(String attrName, String attrValue, String secAttrName, String secAttrValue) {
