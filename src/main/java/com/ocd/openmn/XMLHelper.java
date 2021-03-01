@@ -76,6 +76,8 @@ public class XMLHelper {
 				objList.add(strOnu);
 			}
 		}
+		String lastOnu = response;
+		objList.add(lastOnu);
 		return objList;
 	}
 
