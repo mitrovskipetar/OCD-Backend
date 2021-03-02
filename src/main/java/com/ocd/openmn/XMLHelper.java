@@ -27,6 +27,16 @@ public class XMLHelper {
 		return xmlDoc;
 	}
 
+	public static String generateGetOnuConfigFilesRequest(String portId) {
+		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
+				+ "   <soapenv:Header/>\r\n" + "   <soapenv:Body>";
+		String afterSoapReq = "</soapenv:Body>\r\n" + "</soapenv:Envelope>";
+		String soapReq = "<urn:osdGetOnuConfigFilesRequest>" + "<filter portId='" + portId + "'/>"
+				+ "</urn:osdGetOnuConfigFilesRequest>";
+		String xmlDoc = beforeSoapReq + soapReq + afterSoapReq;
+		return xmlDoc;
+	}
+
 	public static String generateInsertOnuSpecificDataRequest(OnuSpecificData onuSpecificData) {
 		onuSpecificData.getParams().size();
 		String beforeSoapReq = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:iskratel-si:itopenmns-1-0\">\r\n"
@@ -59,10 +69,14 @@ public class XMLHelper {
 //	}
 
 	public static String extractValueFromStringObject(String object, String attrName) {
-		object = object.substring(object.indexOf(attrName) + attrName.length());
-		object = object.substring(object.indexOf("\"") + 1);
-		String value = object.substring(0, object.indexOf("\""));
-		return value;
+		if(object.contains(attrName)) {
+			object = object.substring(object.indexOf(attrName) + attrName.length());
+			object = object.substring(object.indexOf("\"") + 1);
+			String value = object.substring(0, object.indexOf("\""));
+			return value;
+		} else {
+			return null;
+		}
 		}
 
 

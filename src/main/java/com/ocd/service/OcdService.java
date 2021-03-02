@@ -25,9 +25,25 @@ public class OcdService {
         return resultOnus;
     }
 
+    public List<String> getOnuConfigFiles(String portId) throws IOException {
+        String request = XMLHelper.generateGetOnuConfigFilesRequest(portId);
+        String response = SOAPHelper.sendSoapRequest(request);
+        List<String> objects = XMLHelper.extractObjectsFromStringList(response, "configFile");
+        List<String> result = new ArrayList<>();
+        result.add("");
+        for(String obj : objects) {
+            result.add(XMLHelper.extractValueFromStringObject(obj, "fileName"));
+        }
+        return result;
+    }
+
     public OnuSpecificData getOnuSpecificData(String portId) throws IOException {
         String request = XMLHelper.generateGetOnuSpecificDataRequest(portId);
         String response = SOAPHelper.sendSoapRequest(request);
+        if(!response.contains("onuSpecificData")){
+            return null;
+        }
+
         List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "onuSpecificData");
         OnuSpecificData respData = new OnuSpecificData();
         respData.setId(XMLHelper.extractAttributeFromStringObject(onuSpecData.get(0), "id"));
