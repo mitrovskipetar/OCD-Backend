@@ -41,7 +41,9 @@ public class OcdService {
         String request = XMLHelper.generateGetOnuSpecificDataRequest(portId);
         String response = SOAPHelper.sendSoapRequest(request);
         if(!response.contains("onuSpecificData")){
-            return null;
+            OnuSpecificData data = new OnuSpecificData();
+            data.setPortId(portId);
+            return data;
         }
 
         List<String> onuSpecData = XMLHelper.extractObjectsFromStringList(response, "onuSpecificData");
